@@ -1,13 +1,11 @@
 const controllers = require("../controllers/staff.controller");
+const { staffSchema } = require("../schemas/swaggerSchemas");
 
-const routes = [{
-  method: "GET",
-  url: "/Cooks",
-  handler: controllers.getCooks,
-}, {
-  method: "GET",
-  url: "/Waiters",
-  handler: controllers.getWaiters,
-}];
+const staffRoutes = async (fastify) => {
 
-module.exports = routes;
+  fastify.get('/Cooks', staffSchema , controllers.getCooks)
+  fastify.get('/Waiters', staffSchema , controllers.getWaiters)
+
+}
+
+module.exports = staffRoutes;

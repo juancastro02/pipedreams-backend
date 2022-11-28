@@ -1,18 +1,24 @@
 const fastify = require("fastify")({
   logger: true,
 });
-const staffRoutes = require("./routes/staff.routes");
-const { checkInitialData } = require("./helpers/checkData");
 require("./utils/database");
 
-staffRoutes.forEach((route) => {
-  fastify.route(route);
-});
+const swagger = require("./utils/swagger");
+
+// Import of the document validation function
+const { checkInitialData } = require("./helpers/checkData");
+
+// using swagger and putting the configuration
+fastify.register(require("fastify-swagger"), swagger.options);
+
+// Staff routes imports
+fastify.register(require('./routes/staff.routes'));
 
 const start = async () => {
   try {
     await fastify.listen(3000);
     await checkInitialData();
+    fastify.swagger();
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
     fastify.log.error(err);
