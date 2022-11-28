@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
+const { Schema, model } = require("mongoose");
 
-const cooksSchema = new Schema(
+const staffSchema = new Schema(
   {
+    type: String,
     monday: Array,
     tuesday: Array,
     wednesday: Array,
@@ -14,4 +15,4 @@ const cooksSchema = new Schema(
   }
 );
 
-export default model("Cooks", cooksSchema);
+module.exports = model("Staff", staffSchema);
