@@ -3,6 +3,8 @@ const fastify = require("fastify")({
 });
 require("./utils/database");
 
+const cors = require('fastify-cors')
+
 const swagger = require("./utils/swagger");
 
 // Import of the document validation function
@@ -10,6 +12,8 @@ const { checkInitialData } = require("./helpers/checkData");
 
 // using swagger and putting the configuration
 fastify.register(require("fastify-swagger"), swagger.options);
+
+fastify.register(cors)
 
 // Staff routes imports
 fastify.register(require('./routes/staff.routes'));
